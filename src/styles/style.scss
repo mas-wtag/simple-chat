@@ -7,6 +7,10 @@ ul {
   padding: 0;
 }
 
+@mixin radius($width: 4px) {
+  border-radius: $width;
+}
+
 .is-flex {
   display: flex;
 }
@@ -23,4 +27,72 @@ ul {
 .flex-center-h {
   @extend .is-flex;
   @extend .justify-center;
+}
+
+body {
+  background: url("../assets/images/body-bg.png") no-repeat center center;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.chat--window {
+  height: 100vh;
+
+  &-viewport {
+    overflow-y: auto;
+    flex: 1;
+  }
+
+  ul {
+    padding-top: 24px;
+    width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+
+    li {
+      margin-bottom: 16px;
+      @extend .is-flex;
+    }
+  }
+
+  footer {
+    background-color: dodgerblue;
+    padding-top: 8px;
+    padding-bottom: 8px;
+
+    form {
+      display: flex;
+      width: 640px;
+      height: 60px;
+
+      textarea {
+        flex: 1;
+        background-color: white;
+        padding: 8px;
+        border: 2px solid darkgreen;
+        margin-right: 8px;
+        resize: none;
+        font-family: 'Fira Sans', sans-serif;
+        font-size: 18px;
+        height: auto;
+        @include radius();
+
+        &:focus {
+          outline: none;
+        }
+      }
+
+      button {
+        width: 100px;
+        padding: 0;
+        background-color: crimson;
+        border: none;
+        color: white;
+        cursor: pointer;
+        font-family: 'Fira Sans', sans-serif;
+        font-size: 18px;
+        @include radius();
+      }
+    }
+  }
 }
