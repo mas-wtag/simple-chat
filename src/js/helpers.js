@@ -15,3 +15,13 @@ export const createElement = (name, children = [], attrs = {}) => {
 
   return element
 }
+
+export const toDateTime = timestamp =>
+    new Intl.DateTimeFormat('en-US', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric'
+    })
+      .format(timestamp)
