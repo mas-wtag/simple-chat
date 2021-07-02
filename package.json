@@ -1,0 +1,7 @@
+{
+  "name": "simple-chat",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Sujon Al Mahmud <sujoncxx@gmail.com>",
+  "license": "MIT"
+}
