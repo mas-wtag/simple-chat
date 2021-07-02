@@ -20,14 +20,22 @@ $viewport.addEventListener(EVENT_VIEW, (evt) => {
   $viewport.scrollTo({behavior: "smooth", top: scrollHeight})
 })
 
+const handleError = fn => {
+  try {
+    fn()
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 $viewport.addEventListener('scroll', async () => {
   if (timer) {
     clearTimeout(timer)
   }
 
   // fetch newer messages when scroll ends
-  timer = setTimeout(async () => {
-    try {
+  timer = setTimeout(() => {
+    handleError(async () => {
       const messages = await service.getMessages(lastMessageTimestamp, 5)
 
       messages.map(msg => msg.render(msg.author !== SENDER))
@@ -39,9 +47,7 @@ $viewport.addEventListener('scroll', async () => {
 
       const {timestamp} = messages.pop()
       document.dispatchEvent(new CustomEvent(EVENT_MESSAGE, {detail: timestamp}))
-    } catch (err) {
-      console.error(err)
-    }
+    })
   }, 128)
 })
 
@@ -50,12 +56,12 @@ const service = new ChatService(
     process.env.API_USER,
     process.env.API_URL)
 
-chat.addEventListener('submit', async evt => {
+chat.addEventListener('submit', evt => {
   evt.preventDefault()
 
   const { value } = $message
 
-  try {
+  handleError(async () => {
     const msg = await service.sendMessage(value)
 
     $message.value = null
@@ -64,13 +70,10 @@ chat.addEventListener('submit', async evt => {
     $message.focus()
 
     document.dispatchEvent(new CustomEvent(EVENT_MESSAGE, {detail: msg.timestamp}))
-  } catch (err) {
-    console.error(err)
-  }
+  })
 })
 
-;(async () => {
-  try {
+handleError(async () => {
     const messages = await service.getMessages()
 
     messages.map(msg => msg.render(msg.author !== SENDER))
@@ -85,7 +88,4 @@ chat.addEventListener('submit', async evt => {
     const {timestamp} = messages.pop()
 
     document.dispatchEvent(new CustomEvent(EVENT_MESSAGE, {detail: timestamp}))
-  } catch (err) {
-    console.error(err)
-  }
-})()
+})
