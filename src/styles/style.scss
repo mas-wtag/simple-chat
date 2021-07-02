@@ -15,6 +15,10 @@ ul {
   display: flex;
 }
 
+.align-end {
+  justify-content: flex-end;
+}
+
 .justify-center {
   justify-content: center;
 }
@@ -52,6 +56,39 @@ body {
     li {
       margin-bottom: 16px;
       @extend .is-flex;
+
+      .message {
+        background-color: white;
+        border: 2px solid darkgray;
+        padding: 24px;
+        font-size: 16px;
+        max-width: 420px;
+        font-family: 'Fira Sans', sans-serif;
+        @include radius();
+
+        span {
+          color: darkgray;
+        }
+
+        p {
+          margin: 4px 0 4px;
+          font-size: 18px;
+        }
+      }
+
+      &.incoming {
+        @extend .align-end;
+
+        .message {
+          background-color: beige;
+          padding-right: 8px;
+
+          .timestamp {
+            @extend .is-flex;
+            @extend .align-end;
+          }
+        }
+      }
     }
   }
 
