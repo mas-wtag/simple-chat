@@ -6,3 +6,21 @@ ul {
   list-style-type: none;
   padding: 0;
 }
+
+.is-flex {
+  display: flex;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.flex-column {
+  @extend .is-flex;
+  flex-direction: column;
+}
+
+.flex-center-h {
+  @extend .is-flex;
+  @extend .justify-center;
+}
