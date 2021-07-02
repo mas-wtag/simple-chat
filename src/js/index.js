@@ -23,3 +23,16 @@ chat.addEventListener('submit', async evt => {
     console.error(err)
   }
 })
+
+const SENDER = process.env.API_USER
+
+;(async () => {
+  try {
+    const messages = await service.getMessages()
+
+    messages.map(msg => msg.render(msg.author !== SENDER))
+        .forEach(n => $messages.appendChild(n))
+  } catch (err) {
+    console.error(err)
+  }
+})()
