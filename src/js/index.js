@@ -14,8 +14,8 @@ document.addEventListener(EVENT_MESSAGE, (evt) => {
   lastMessageTimestamp = evt.detail
 })
 
-$viewport.addEventListener(EVENT_VIEW, (evt) => {
-  const {scrollHeight} = evt.target
+$viewport.addEventListener(EVENT_VIEW, ({target}) => {
+  const {scrollHeight} = target
 
   $viewport.scrollTo({behavior: "smooth", top: scrollHeight})
 })
@@ -57,6 +57,7 @@ $viewport.addEventListener('scroll', async () => {
       }
 
       const {timestamp} = messages.pop()
+
       document.dispatchEvent(new CustomEvent(EVENT_MESSAGE, {detail: timestamp}))
     })
   }, 128)
@@ -85,16 +86,16 @@ chat.addEventListener('submit', evt => {
 })
 
 handleError(async () => {
-    const messages = await service.getMessages()
+  const messages = await service.getMessages()
 
-    messages.map(msg => msg.render(msg.author !== SENDER))
-        .forEach(n => $messages.appendChild(n))
+  messages.map(msg => msg.render(msg.author !== SENDER))
+      .forEach(n => $messages.appendChild(n))
 
-    if (!messages.length) {
-      return
-    }
+  if (!messages.length) {
+    return
+  }
 
-    const {timestamp} = messages.pop()
+  const {timestamp} = messages.pop()
 
-    document.dispatchEvent(new CustomEvent(EVENT_MESSAGE, {detail: timestamp}))
+  document.dispatchEvent(new CustomEvent(EVENT_MESSAGE, {detail: timestamp}))
 })
