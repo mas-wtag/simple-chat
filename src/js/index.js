@@ -28,7 +28,18 @@ const handleError = fn => {
   }
 }
 
+let pos
+
 $viewport.addEventListener('scroll', async () => {
+  const  {scrollTop} = $viewport
+
+  // bail out if we're scrolling up
+  if (pos > scrollTop) {
+    return
+  }
+
+  pos = scrollTop
+
   if (timer) {
     clearTimeout(timer)
   }
@@ -82,8 +93,6 @@ handleError(async () => {
     if (!messages.length) {
       return
     }
-
-    $viewport.dispatchEvent(new CustomEvent(EVENT_VIEW))
 
     const {timestamp} = messages.pop()
 
