@@ -59,7 +59,7 @@ body {
 
       .message {
         background-color: white;
-        border: 2px solid darkgray;
+        border: 2px solid #D4DADE;
         padding: 24px;
         font-size: 16px;
         max-width: 420px;
@@ -67,12 +67,13 @@ body {
         @include radius();
 
         span {
-          color: darkgray;
+          color: #B5BEC4;
         }
 
         p {
           margin: 4px 0 4px;
           font-size: 18px;
+          color: #61686f;
         }
       }
 
@@ -80,8 +81,13 @@ body {
         @extend .align-end;
 
         .message {
-          background-color: beige;
+          background-color: #FBF6C1;
+          padding-left: 16px;
           padding-right: 8px;
+
+          p {
+            color: #61686f;
+          }
 
           .timestamp {
             @extend .is-flex;
@@ -93,7 +99,7 @@ body {
   }
 
   footer {
-    background-color: dodgerblue;
+    background-color: #2F8CCB;
     padding-top: 8px;
     padding-bottom: 8px;
 
@@ -106,13 +112,17 @@ body {
         flex: 1;
         background-color: white;
         padding: 8px;
-        border: 2px solid darkgreen;
+        border: 2px solid #2E77A4;
         margin-right: 8px;
         resize: none;
         font-family: 'Fira Sans', sans-serif;
         font-size: 18px;
         height: auto;
         @include radius();
+
+        &::placeholder {
+          color: #B5BEC4;
+        }
 
         &:focus {
           outline: none;
@@ -122,7 +132,7 @@ body {
       button {
         width: 100px;
         padding: 0;
-        background-color: crimson;
+        background-color: #F7846D;
         border: none;
         color: white;
         cursor: pointer;
