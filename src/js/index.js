@@ -5,6 +5,12 @@ const [$message] = chat.elements
 const $messages = document.querySelector('#messages')
 const $viewport = document.querySelector('.chat--window-viewport')
 const EVENT_VIEW = 'view'
+const EVENT_MESSAGE = 'message'
+let lastMessageTimestamp
+
+document.addEventListener(EVENT_MESSAGE, (evt) => {
+  lastMessageTimestamp = evt.detail
+})
 
 $viewport.addEventListener(EVENT_VIEW, (evt) => {
   const {scrollHeight} = evt.target
@@ -29,6 +35,8 @@ chat.addEventListener('submit', async evt => {
     $messages.appendChild(msg.render(false))
     $viewport.dispatchEvent(new CustomEvent(EVENT_VIEW))
     $message.focus()
+
+    document.dispatchEvent(new CustomEvent(EVENT_MESSAGE, {detail: msg.timestamp}))
   } catch (err) {
     console.error(err)
   }
@@ -48,6 +56,10 @@ const SENDER = process.env.API_USER
     }
 
     $viewport.dispatchEvent(new CustomEvent(EVENT_VIEW))
+
+    const {timestamp} = messages.pop()
+
+    document.dispatchEvent(new CustomEvent(EVENT_MESSAGE, {detail: timestamp}))
   } catch (err) {
     console.error(err)
   }
