@@ -1,3 +1,4 @@
+$breakpoint-tablet: 768px;
 $gutter: 1rem;
 $color-light-grey: #B5BEC4;
 $color-grey: #61686f;
@@ -59,6 +60,10 @@ body {
     margin-left: auto;
     margin-right: auto;
 
+    @media (max-width: $breakpoint-tablet) {
+      width: calc(100% - #{$gutter*3});
+    }
+
     li {
       margin-bottom: $gutter;
       @extend .is-flex;
@@ -74,6 +79,10 @@ body {
         max-width: calc(420px - #{$offset});
         font-family: $font-family;
         @include radius();
+
+        @media (max-width: $breakpoint-tablet) {
+          max-width: calc(240px - #{$offset});
+        }
 
         span {
           color: $color-light-grey;
@@ -115,6 +124,10 @@ body {
       width: 640px;
       height: 60px;
 
+      @media (max-width: $breakpoint-tablet) {
+        width: 100%;
+      }
+
       textarea {
         flex: 1;
         background-color: white;
@@ -125,6 +138,7 @@ body {
         font-family: $font-family;
         font-size: 1rem;
         height: auto;
+        min-width: 200px;
         @include radius();
 
         &::placeholder {
