@@ -1,3 +1,9 @@
+$gutter: 1rem;
+$color-light-grey: #B5BEC4;
+$color-grey: #61686f;
+$font-family: 'Fira Sans', sans-serif;
+$font-size: 18px;
+
 body, ul {
   margin: 0;
 }
@@ -7,7 +13,7 @@ ul {
   padding: 0;
 }
 
-@mixin radius($width: 4px) {
+@mixin radius($width: $gutter/4) {
   border-radius: $width;
 }
 
@@ -48,45 +54,48 @@ body {
   }
 
   ul {
-    padding-top: 24px;
+    padding-top: $gutter + $gutter/2;
     width: 640px;
     margin-left: auto;
     margin-right: auto;
 
     li {
-      margin-bottom: 16px;
+      margin-bottom: $gutter;
       @extend .is-flex;
+
+      // exclude padding & border
+      $offset: $gutter * 2 - $gutter/4;
 
       .message {
         background-color: white;
         border: 2px solid #D4DADE;
-        padding: 24px;
-        font-size: 16px;
-        max-width: 420px;
-        font-family: 'Fira Sans', sans-serif;
+        padding: $gutter;
+        font-size: $gutter;
+        max-width: calc(420px - #{$offset});
+        font-family: $font-family;
         @include radius();
 
         span {
-          color: #B5BEC4;
+          color: $color-light-grey;
         }
 
         p {
-          margin: 4px 0 4px;
-          font-size: 18px;
-          color: #61686f;
+          margin: $gutter/4 0 $gutter/4;
+          font-size: $font-size;
+          line-height: 2rem;
+          color: $color-grey;
         }
       }
 
-      &.incoming {
+      &.outgoing {
         @extend .align-end;
 
         .message {
           background-color: #FBF6C1;
-          padding-left: 16px;
-          padding-right: 8px;
 
           p {
-            color: #61686f;
+            color: $color-grey;
+            margin-top: 0;
           }
 
           .timestamp {
@@ -100,28 +109,26 @@ body {
 
   footer {
     background-color: #2F8CCB;
-    padding-top: 8px;
-    padding-bottom: 8px;
+    padding: $gutter/2;
 
     form {
-      display: flex;
       width: 640px;
       height: 60px;
 
       textarea {
         flex: 1;
         background-color: white;
-        padding: 8px;
+        padding: 1.25rem $gutter/2 $gutter/2;
         border: 2px solid #2E77A4;
-        margin-right: 8px;
+        margin-right: $gutter/2;
         resize: none;
-        font-family: 'Fira Sans', sans-serif;
-        font-size: 18px;
+        font-family: $font-family;
+        font-size: 1rem;
         height: auto;
         @include radius();
 
         &::placeholder {
-          color: #B5BEC4;
+          color: $color-light-grey;
         }
 
         &:focus {
@@ -130,14 +137,14 @@ body {
       }
 
       button {
-        width: 100px;
+        width: 120px;
         padding: 0;
         background-color: #F7846D;
         border: none;
         color: white;
         cursor: pointer;
-        font-family: 'Fira Sans', sans-serif;
-        font-size: 18px;
+        font-family: $font-family;
+        font-size: $font-size;
         @include radius();
       }
     }
