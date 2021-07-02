@@ -22,6 +22,6 @@ export default class Message {
             toDateTime(this.timestamp)
         ], {class: 'timestamp'})
       ].filter(Boolean), {class: 'message'})
-    ], {class: !incoming ? 'incoming' : 'outgoing'})
+    ], {class: incoming ? 'incoming' : 'outgoing'})
   }
 }
