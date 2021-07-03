@@ -4,8 +4,11 @@ $breakpoint-tablet: 768px;
 $gutter: 1rem;
 $color-light-grey: #B5BEC4;
 $color-grey: #61686f;
+$color-white: #fff;
 $font-family: 'Fira Sans', sans-serif;
-$font-size: 18px;
+$font-size: 1.125rem;
+$viewport-width: 640px;
+$outgoing-message-bg: #FBF6C1;
 
 body, ul {
   margin: 0;
@@ -58,7 +61,7 @@ body {
 
   ul {
     padding-top: $gutter + math.div($gutter, 2);
-    width: 640px;
+    width: $viewport-width;
     margin-left: auto;
     margin-right: auto;
 
@@ -74,7 +77,7 @@ body {
       $offset: $gutter * 2 - math.div($gutter, 4);
 
       .message {
-        background-color: white;
+        background-color: $color-white;
         border: 2px solid #D4DADE;
         padding: $gutter;
         font-size: $gutter;
@@ -102,7 +105,7 @@ body {
         @extend .align-end;
 
         .message {
-          background-color: #FBF6C1;
+          background-color: $outgoing-message-bg;
 
           p {
             color: $color-grey;
@@ -123,7 +126,7 @@ body {
     padding: math.div($gutter, 2);
 
     form {
-      width: 640px;
+      width: $viewport-width;
       height: 60px;
 
       @media (max-width: $breakpoint-tablet) {
@@ -132,7 +135,7 @@ body {
 
       textarea {
         flex: 1;
-        background-color: white;
+        background-color: $color-white;
         padding: 1.25rem math.div($gutter, 2) math.div($gutter, 2);
         border: 2px solid #2E77A4;
         margin-right: math.div($gutter, 2);
@@ -157,7 +160,7 @@ body {
         padding: 0;
         background-color: #F7846D;
         border: none;
-        color: white;
+        color: $color-white;
         cursor: pointer;
         font-family: $font-family;
         font-size: $font-size;
