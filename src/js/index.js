@@ -5,13 +5,12 @@ const [$message] = chat.elements
 const $messages = document.querySelector('#messages')
 const $viewport = document.querySelector('.chat--window-viewport')
 
-const SENDER = process.env.API_USER
 const EVENT_VIEW = 'view'
 const EVENT_MESSAGE = 'message'
 let lastMessageTimestamp, timer
 
-document.addEventListener(EVENT_MESSAGE, (evt) => {
-  lastMessageTimestamp = evt.detail
+document.addEventListener(EVENT_MESSAGE, ({ detail }) => {
+  lastMessageTimestamp = detail
 })
 
 $viewport.addEventListener(EVENT_VIEW, ({target}) => {
@@ -28,6 +27,8 @@ const handleError = fn => {
   }
 }
 
+const service = new ChatService(process.env.API_KEY, process.env.API_USER, process.env.API_URL)
+const SENDER = process.env.API_USER
 let pos
 
 $viewport.addEventListener('scroll', async () => {
@@ -62,11 +63,6 @@ $viewport.addEventListener('scroll', async () => {
     })
   }, 128)
 })
-
-const service = new ChatService(
-    process.env.API_KEY,
-    process.env.API_USER,
-    process.env.API_URL)
 
 chat.addEventListener('submit', evt => {
   evt.preventDefault()
