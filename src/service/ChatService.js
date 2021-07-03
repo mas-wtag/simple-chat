@@ -3,7 +3,6 @@ import Message from "../models/Message";
 const PARAM_TOKEN = 'token'
 
 export default class ChatService {
-
   #apiUrl;
   #apiKey;
   #username;
