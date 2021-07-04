@@ -13,7 +13,7 @@ export default class ChatService {
     this.#apiUrl = apiUrl
   }
 
-  getMessages(since, limit = 10) {
+  getMessages(since, limit) {
     const query = new URLSearchParams()
 
     query.append(PARAM_TOKEN, this.#apiKey)
