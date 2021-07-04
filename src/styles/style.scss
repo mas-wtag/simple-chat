@@ -70,7 +70,7 @@ body {
     }
 
     li {
-      margin-bottom: $gutter;
+      margin-bottom: math.div($gutter, 2);
       @extend .is-flex;
 
       // exclude padding & border
@@ -118,6 +118,11 @@ body {
           }
         }
       }
+    }
+
+    .outgoing + .incoming,
+    .incoming + .outgoing {
+      padding-top: math.div($gutter, 2);
     }
   }
 
