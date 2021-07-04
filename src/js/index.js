@@ -24,6 +24,21 @@ const handleError = fn => {
   }
 }
 
+const fetchMessages = async (since, total) => {
+  const messages = await service.getMessages(since, total)
+
+  messages.map(msg => msg.render(msg.author !== SENDER))
+      .forEach(n => $messages.appendChild(n))
+
+  if (!messages.length) {
+    return
+  }
+
+  const {timestamp} = messages.pop()
+
+  document.dispatchEvent(new CustomEvent(EVENT_MESSAGE, {detail: timestamp}))
+}
+
 const service = new ChatService(process.env.API_KEY, process.env.API_USER, process.env.API_URL)
 const SENDER = process.env.API_USER
 const $messages = document.querySelector('#chat--messages')
@@ -46,18 +61,7 @@ $viewport.addEventListener('scroll', async () => {
   // fetch newer messages when scroll ends
   timer = setTimeout(() => {
     handleError(async () => {
-      const messages = await service.getMessages(lastMessageTimestamp, 5)
-
-      messages.map(msg => msg.render(msg.author !== SENDER))
-          .forEach(n => $messages.appendChild(n))
-
-      if (!messages.length) {
-        return
-      }
-
-      const {timestamp} = messages.pop()
-
-      document.dispatchEvent(new CustomEvent(EVENT_MESSAGE, {detail: timestamp}))
+      await fetchMessages(lastMessageTimestamp, 5)
     })
   }, 128)
 })
@@ -83,16 +87,5 @@ chat.addEventListener('submit', evt => {
 })
 
 handleError(async () => {
-  const messages = await service.getMessages()
-
-  messages.map(msg => msg.render(msg.author !== SENDER))
-      .forEach(n => $messages.appendChild(n))
-
-  if (!messages.length) {
-    return
-  }
-
-  const {timestamp} = messages.pop()
-
-  document.dispatchEvent(new CustomEvent(EVENT_MESSAGE, {detail: timestamp}))
+  await fetchMessages()
 })
